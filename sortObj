@@ -1,0 +1,42 @@
+/*
+  Sorts list by key in place
+*/
+function sortObj(list, key,order) {
+    order = typeof order !== 'undefined' ? order : 'a';
+    function compare(a, b) {
+        a = a[key];
+        b = b[key];
+        var type = (typeof(a) === 'string' || typeof(b) === 'string') ? 'string' : 'number';
+        var result;
+        if (type === 'string'){
+            if(key=='startDate' || key=='endDate'){
+                a = new Date(a).getTime();
+                b = new Date(b).getTime();
+                if(order=='a'){
+                    result = a - b;
+                }else if(order=='d'){
+                    result = b - a;
+                }
+                //if(order=='a'){
+                //    result = a < b;
+                //}else if(order=='d'){
+                //    result = a > b;
+                //}
+            }else{
+                if(order=='a'){
+                    result = a.localeCompare(b);
+                }else if(order=='d'){
+                    result = b.localeCompare(a);
+                }
+            }
+        } else {
+            if(order=='a'){
+                result = a - b;
+            }else if(order=='d'){
+                result = b - a;
+            }
+        }
+        return result;
+    }
+    return list.sort(compare);
+}
