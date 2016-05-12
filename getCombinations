@@ -1,0 +1,31 @@
+function getCombinations(set, min) {
+		
+		for(var i=0;i<set.length-1; i++){
+			var item1 = set[i];
+			for(var j = i+1; j<set.length;j++){
+				var item2 = set[j];
+				if(item1==item2){
+					throw "getCombinations() takes a set of items (no duplicates)."
+				}
+			}
+		}
+		min = typeof min !== 'undefined' ? min : 1;
+	    var fn = function(n, src, got, all) {
+	        if (n == 0) {
+	            if (got.length > 0) {
+	                all[all.length] = got;
+	            }
+	            return;
+	        }
+	        for (var j = 0; j < src.length; j++) {
+	            fn(n - 1, src.slice(j + 1), got.concat([src[j]]), all);
+	        }
+	        return;
+	    }
+	    var all = [];
+	    for (var i = min; i < set.length; i++) {
+	        fn(i, set, [], all);
+	    }
+	    all.push(set);
+	    return all;
+	}
